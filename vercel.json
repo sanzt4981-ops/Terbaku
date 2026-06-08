@@ -10,7 +10,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "style.css",
+      "src": "chat.css",
       "use": "@vercel/static"
     }
   ],
