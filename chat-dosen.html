@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etika Chat Dosen - BahasaBaku AI</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity:0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+.input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+.btn{
+  width:100%;
+  background:linear-gradient(to right,#4f46e5,#6366f1);
+  color:white;
+  padding:12px;
+  border-radius:10px;
+  font-weight:bold;
+  transition:0.3s;
+
+}
+
+.btn:hover{
+  opacity:0.9;
+}
+
+.card{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
+}
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-md p-4 sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+
+    <h1 class="text-2xl font-bold text-blue-600">
+      Ter<span style="color: darkblue;" class="text-slate-800">BaKu</span>
+    </h1>
+
+    <div class="space-x-6 text-sm md:text-base">
+      <a href="index.html" class="hover:text-blue-600">Home</a>
+      <a href="chatdosen.html" class="hover:text-blue-600">Chat</a>
+      <a href="quiz.html" class="hover:text-blue-600">Quiz</a>
+      <a href="chat-dosen.html" class="text-blue-600 font-semibold">
+        Etika Chat
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+<div class="max-w-7xl mx-auto p-6">
+
+<!-- HEADER -->
+<h1 class="text-4xl font-bold text-center mb-2 text-indigo-700">
+Template Chat Dosen
+</h1>
+
+<p class="text-center text-gray-600 mb-6">
+Aplikasi pembuat chat formal otomatis untuk mahasiswa
+</p>
+
+<!-- INPUT -->
+<div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+
+<div class="grid md:grid-cols-2 gap-4">
+
+<input id="nama" class="input" placeholder="Nama Kamu">
+
+<input id="nim" class="input" placeholder="NIM">
+
+<input id="prodi" class="input" placeholder="Program Studi">
+
+<input id="dosen" class="input md:col-span-2" placeholder="Nama Dosen">
+
+<select id="sapaan" class="input md:col-span-2">
+<option value="">Auto Detect (Rekomendasi)</option>
+<option value="Bapak">Bapak</option>
+<option value="Ibu">Ibu</option>
+</select>
+
+</div>
+
+<button onclick="renderTemplates()" class="btn mt-4">
+🚀 Terapkan ke Template
+</button>
+
+</div>
+
+<!-- TEMPLATE -->
+<div id="templates" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+</div>
+
+<script>
+
+const titles = [
+"Meminta Bimbingan",
+"Izin Tidak Hadir",
+"Izin Terlambat",
+"Izin Sakit",
+"Izin Berduka",
+"Menanyakan Nilai",
+"Meminta Tanda Tangan",
+"Follow-up Pesan",
+"Konsultasi Akademik",
+"Menyerahkan Revisi",
+"Tanda Tangan KRS",
+"Wawancara Dosen",
+"Izin ke Dokter",
+"Izin Mendadak",
+"Izin Bimbingan",
+"Meminta Materi",
+"Kendala Jaringan",
+"Izin Seminar",
+"Izin Organisasi"
+];
+
+function cleanNamaDosen(dosen){
+  return dosen
+    .replace(/^(pak|bapak|bu|ibu)\s+/i, "")
+    .trim();
+}
+
+function getSapaan(dosen, pilihan){
+
+  if(pilihan) return pilihan;
+
+  const d = dosen.toLowerCase().trim();
+
+  if(
+    d.includes("ibu") ||
+    d.startsWith("bu ") ||
+    d.startsWith("ibu")
+  ){
+    return "Ibu";
+  }
+
+  if(
+    d.includes("bapak") ||
+    d.startsWith("pak ") ||
+    d.startsWith("bapak")
+  ){
+    return "Bapak";
+  }
+
+  return "Bapak/Ibu";
+}
+
+function templates(nama,nim,prodi,dosen,sapaan){
+
+return [
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon waktu untuk bimbingan terkait tugas/proyek yang sedang saya kerjakan agar hasilnya sesuai dengan arahan ${sapaan}.
+
+Kira-kira kapan ${sapaan} memiliki waktu luang untuk bimbingan? Terima kasih atas kesediaannya.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon izin tidak dapat mengikuti perkuliahan hari ini dikarenakan [alasan].
+
+Saya akan tetap mempelajari materi yang diberikan. Mohon pengertiannya. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin menyampaikan bahwa saya kemungkinan akan terlambat mengikuti perkuliahan hari ini karena kendala transportasi di perjalanan menuju kampus.
+
+Mohon pengertiannya. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon izin tidak dapat mengikuti perkuliahan hari ini karena kondisi kesehatan yang kurang baik.
+
+Saya akan berusaha mempelajari materi yang tertinggal. Mohon pengertiannya. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Dengan hormat saya ingin menyampaikan bahwa saya tidak dapat mengikuti perkuliahan hari ini karena sedang berduka atas meninggalnya anggota keluarga/kerabat.
+
+Sehubungan dengan hal tersebut, saya mohon izin tidak dapat hadir. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Sehubungan dengan pengumuman nilai yang telah keluar, saya ingin menanyakan terkait nilai saya yang saat ini belum tertera di sistem.
+
+Mohon arahannya apabila ada hal yang perlu saya lengkapi. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya bermaksud untuk meminta tanda tangan ${sapaan} pada dokumen yang perlu saya lengkapi.
+
+Kira-kira kapan saya dapat menemui ${sapaan}? Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya kembali. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin menanyakan kembali terkait pesan yang sebelumnya saya kirimkan.
+
+Mohon arahannya apabila ${sapaan} sudah berkenan merespons. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin berkonsultasi mengenai rencana studi dan kendala akademik yang sedang saya hadapi.
+
+Kira-kira kapan ${sapaan} memiliki waktu luang? Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Melalui pesan ini, saya ingin mengirimkan kembali file tugas yang telah saya perbaiki sesuai arahan ${sapaan}.
+
+Mohon perkenannya untuk meninjau kembali. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Sehubungan dengan masa pengisian KRS, saya bermaksud meminta tanda tangan dan persetujuan ${sapaan}.
+
+Kira-kira kapan saya bisa menemui ${sapaan}? Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya bermaksud memohon kesediaan ${sapaan} untuk menjadi narasumber wawancara terkait tugas mata kuliah.
+
+Kira-kira kapan ${sapaan} memiliki waktu luang? Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon izin tidak dapat mengikuti perkuliahan hari ini karena ada jadwal pemeriksaan ke dokter.
+
+Mohon pengertiannya. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon izin tidak dapat mengikuti perkuliahan hari ini karena keperluan mendadak yang tidak dapat ditinggalkan.
+
+Terima kasih atas pengertiannya.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon waktu untuk bimbingan kuliah agar lebih memahami materi yang telah diberikan.
+
+Kira-kira kapan ${sapaan} memiliki waktu luang? Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin memohon izin untuk meminta materi perkuliahan sebelumnya karena saya berhalangan hadir.
+
+Terima kasih atas bantuannya.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya ingin menyampaikan bahwa saya mengalami kendala jaringan/internet sehingga tidak dapat mengikuti perkuliahan online hari ini dengan baik.
+
+Saya akan berusaha mempelajari ulang materi yang diberikan. Mohon pengertiannya. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya memohon izin tidak dapat mengikuti perkuliahan hari ini karena sedang mengikuti seminar.
+
+Saya akan tetap mempelajari materi yang diberikan. Terima kasih.`,
+
+`Selamat pagi, ${sapaan} ${dosen}. Mohon maaf mengganggu waktunya. Saya ${nama}, NIM ${nim}, Program Studi ${prodi}.
+
+Saya memohon izin tidak dapat mengikuti perkuliahan hari ini karena sedang mengikuti kegiatan organisasi.
+
+Saya akan bertanggung jawab mempelajari materi yang tertinggal. Terima kasih.`
+
+];
+
+}
+
+function renderTemplates(){
+
+const nama = document.getElementById("nama").value || "[Nama]";
+const nim = document.getElementById("nim").value || "[NIM]";
+const prodi = document.getElementById("prodi").value || "[Program Studi]";
+const dosenInput = document.getElementById("dosen").value || "[Nama Dosen]";
+const pilihan = document.getElementById("sapaan").value;
+
+const sapaan = getSapaan(dosenInput,pilihan);
+
+const dosen = cleanNamaDosen(dosenInput);
+
+const data = templates(
+  nama,
+  nim,
+  prodi,
+  dosen,
+  sapaan
+);
+
+const root = document.getElementById("templates");
+
+root.innerHTML = "";
+
+data.forEach((t,i)=>{
+
+root.innerHTML += `
+<div class="card fade-in">
+
+<h3 class="font-bold text-indigo-600 mb-2">
+${i+1}. ${titles[i]}
+</h3>
+
+<pre id="t${i}" class="whitespace-pre-wrap text-sm mb-3">
+${t}
+</pre>
+
+<button onclick="copyText('t${i}',this)" class="btn">
+📋 Salin
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+function copyText(id,btn){
+
+navigator.clipboard.writeText(
+  document.getElementById(id).innerText
+);
+
+btn.innerText = "✔ Tersalin";
+
+setTimeout(()=>{
+  btn.innerText = "📋 Salin";
+},1500);
+
+}
+
+renderTemplates();
+
+</script>
+
+</body>
+</html>

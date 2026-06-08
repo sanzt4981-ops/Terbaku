@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Chat Dosen - Bahasa Baku</title>
+    <link rel="stylesheet" href="chat.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-brand"><strong>Ter<span style="color: darkblue ;">BaKu</span></strong></div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="chatdosen.html" class="active">Chat</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="chat-dosen.html">Etika Chat</a>
+        </div>
+    </nav>
+
+    <div class="chat-wrapper">
+        <div class="wa-container">
+            <div class="wa-header">
+                <div class="avatar">👨‍🏫</div>
+                <div class="status-container">
+                    <span class="name">Bpk. Dosdi</span>
+                    <span class="status">Online</span>
+                </div>
+            </div>
+
+            <div class="wa-chat-box" id="chatBox">
+                <div class="message msg-dosen">
+                    Selamat datang. Silakan hubungi saya dengan etika dan bahasa yang benar. Ingat sertakan identitas lengkap (Nama, NIM, Kelas, Prodi).
+                </div>
+            </div>
+
+            <div class="wa-input-area">
+                <input type="text" id="userInput" placeholder="Ketik pesan..." autocomplete="off">
+                <button id="sendBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>

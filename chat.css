@@ -1,0 +1,167 @@
+/* --- RESET DASAR --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #d1d7db; /* Warna background abu-abu kebiruan */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- NAVBAR STYLING --- */
+.navbar {
+    background-color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    font-size: 25px;
+    color: #1a73e8; /* Warna biru mirip di gambar */
+    margin-right: 840px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #1a73e8;
+    font-weight: bold;
+}
+
+/* --- PEMBUNGKUS CHAT (UNTUK LAYOUT FIX) --- */
+.chat-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* 100% tinggi layar dikurangi tinggi navbar */
+    padding: 20px;
+}
+
+/* --- CHAT CONTAINER STYLING --- */
+.wa-container {
+    width: 100%;
+    max-width: 450px;
+    height: 80vh; /* Tinggi kotak chat */
+    background-color: #efeae2; /* Background chat WA */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header */
+.wa-header {
+    background-color: #075e54;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+.status-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.status {
+    font-size: 12px;
+    color: #d1d1d1;
+}
+
+/* Chat Box */
+.wa-chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    max-width: 85%;
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.msg-user {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+}
+
+.msg-dosen {
+    background-color: #ffffff;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+}
+
+/* Input Area */
+.wa-input-area {
+    background-color: #f0f2f5;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.wa-input-area input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.wa-input-area button {
+    background-color: #00a884;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.wa-input-area button:hover {
+    background-color: #018d6f;
+}
